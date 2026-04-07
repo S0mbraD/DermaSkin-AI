@@ -1,0 +1,48 @@
+{
+  "name": "dermaskin-ai",
+  "private": true,
+  "version": "1.0.3",
+  "description": "DermaSkin AI — 皮肤科技能操作训练分析评估系统",
+  "author": "DermaSkin Team",
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "npm run build:electron && concurrently -n vite,electron -c blue,green \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "build:electron": "tsup electron/main.ts electron/preload.ts electron/updater.ts --outDir dist-electron --format cjs --external electron --external better-sqlite3 --external electron-updater",
+    "build:all": "npm run build && npm run build:electron",
+    "pack": "npm run build:all && electron-builder --dir",
+    "dist": "npm run build:all && electron-builder",
+    "preview": "vite preview",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.1",
+    "wait-on": "^9.0.4"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.1.0",
+    "antd": "^6.3.3",
+    "better-sqlite3": "^12.8.0",
+    "echarts": "^6.0.0",
+    "echarts-for-react": "^3.0.6",
+    "electron-updater": "^6.8.3",
+    "framer-motion": "^12.38.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
+    "zustand": "^5.0.12"
+  }
+}
